@@ -13,7 +13,7 @@ void swap(int *x, int *y)
 	*y = temp;
 }
 /**
- * bubble_sort - sorts an array of integers in ascending order.
+ * bubble_sort - sorts an array of integersi in ascending order.
  * @array: a pointer to an array of integers.
  * @size: the size of the array.
  *
@@ -22,7 +22,9 @@ void swap(int *x, int *y)
 void bubble_sort(int *array, size_t size)
 {
 	size_t i, j;
-
+	
+	if (!array || size < 2)
+		return;
 	for (i = 0; i < size; i++)
 	{
 		for (j = 0; j < size - i - 1; j++)
