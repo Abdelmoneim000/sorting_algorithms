@@ -2,7 +2,6 @@
 #define SORT_H
 
 #include <stdio.h>
-#include <stdlib.h>
 
 /**
 * struct listint_s - Doubly linked list node
@@ -28,3 +27,5 @@ void quick_sort(int *array, size_t size);
 int lomuto_partition(int *array, size_t size, int low, int high);
 void quick_sort_recursion(int *array, size_t size, int low, int high);
 #endif
+
+#endif /* SORT_H */
