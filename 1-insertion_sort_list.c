@@ -1,7 +1,7 @@
 #include "sort.h"
 
 /**
- * swaplist - swaps two nodes in a linked list.
+ * swapList - swaps two nodes in a linked list.
  * @a: a pointer to a linked list.
  * @b: a pointer to a linked list.
  * @head: a double pointer to a linked list.
