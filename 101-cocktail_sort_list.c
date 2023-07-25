@@ -1,29 +1,43 @@
 #include "sort.h"
 /**
- * swapList - swaps two nodes in a linked list.
- * @a: a pointer to a linked list.
- * @b: a pointer to a linked list.
- * @head: a double pointer to a linked list.
+ * swap_nodes - swapes two nodes in a linked list.
+ * @n1: first node.
+ * @n2: second node.
  */
-void swapList(listint_t *a, listint_t *b, listint_t **head)
+void swap_nodes(listint_t *n1, listint_t *n2)
 {
-	listint_t *list1 = NULL, *list2 = NULL;
+	listint_t *temp_next, *temp_prev;
 
-	if (a == NULL || b == NULL)
+	if (!n1 || !n2 || n1 == n2)
 		return;
-	list1 = a->prev;
-	list2 = b->next;
-
-	if (list1)
-		list1->next = b;
-	if (list2)
-		list2->prev = a;
-	a->next = list2;
-	a->prev = b;
-	b->next = a;
-	b->prev = list1;
-	if (list1 == NULL)
-		*head = b;
+	if (n1->next == n2)
+	{
+		n1->next = n2->next;
+		n2->prev = n1->prev;
+		n1->prev = n2;
+		n2->next = n1;
+		if (n1->next)
+			n1->next->prev = n1;
+		if (n2->prev)
+			n2->prev->next = n2;
+	}
+	else
+	{
+		temp_next = n1->next;
+		temp_prev = n1->prev;
+		n1->next = n2->next;
+		n1->prev = n2->prev;
+		n2->next = temp_next;
+		n2->prev = temp_prev;
+		if (n1->next)
+			n1->next->prev = n1;
+		if (n1->prev)
+			n1->prev->next = n1;
+		if (n2->next)
+			n2->next->prev = n2;
+		if (n2->prev)
+			n2->prev->next = n2;
+	}
 }
 /**
  * cocktail_sort_list - sorts a daubly linked list of integers
@@ -37,39 +51,39 @@ void cocktail_sort_list(listint_t **list)
 	listint_t *start = NULL;
 	listint_t *end = NULL;
 	listint_t *current = *list;
-	listint_t *last_swap = NULL;
+	int swapped = 1;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
-
-	while (end != start)
+	while (swapped)
 	{
+		swapped = 0;
 		while (current->next != end)
 		{
 			if (current->n > current->next->n)
 			{
-				swapList(current, current->next, list);
+				swap_nodes(current, current->next);
 				print_list(*list);
-				last_swap = current->next;
+				swapped = 1;
 			}
-			current = current->next;
+			else
+				current = current->next;
 		}
-
-		end = last_swap;
-		current = last_swap->prev;
-
-		while (current != start)
+		end = current;
+		if (!swapped)
+			break;
+		swapped = 0;
+		while (current->prev != start)
 		{
-			if (current->n > current->next->n)
+			if (current->n < current->prev->n)
 			{
-				swapList(current, current->next, list);
+				swap_nodes(current->prev, current);
 				print_list(*list);
-				last_swap = current->next;
+				swapped = 1;
 			}
-			current = current->prev;
+			else
+				current = current->prev;
 		}
-
-		start = last_swap;
-		current = last_swap;
+		start = current;
 	}
 }
