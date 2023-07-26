@@ -28,6 +28,6 @@ int lomuto_partition(int *array, size_t size, int low, int high);
 void quick_sort_recursion(int *array, size_t size, int low, int high);
 void shell_sort(int *array, size_t size);
 void cocktail_sort_list(listint_t **list);
-void swap_nodes(listint_t *n1, listint_t *n2);
+void swap_nodes(listint_t **list, listint_t *a, listint_t *b);
 void quick_sort_hoare(int *array, size_t size);
 #endif /* SORT_H */
