@@ -9,6 +9,8 @@ void swap_nodes(listint_t **list, listint_t *a, listint_t *b)
 {
 	listint_t *tmp;
 
+	if (!list || !(*list) || !a || !b || a == b)
+		return;
 	tmp = a->prev;
 	if (tmp)
 		tmp->next = b;
