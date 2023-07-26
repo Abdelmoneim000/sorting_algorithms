@@ -1,27 +1,46 @@
 #include "sort.h"
 /**
  * swap_nodes - swapes two nodes in a linked list.
- * @a: first node.
- * @b: second node.
+ * @n1: first node.
+ * @n2: second node.
  * @list: the list to be sorted.
  */
-void swap_nodes(listint_t **list, listint_t *a, listint_t *b)
+void swap_nodes(listint_t **list, listint_t *n1, listint_t *n2)
 {
-	listint_t *tmp;
+	listint_t *temp_next, *temp_prev;
 
-	if (!list || !(*list) || !a || !b || a == b)
+	if (!n1 || !n2 || n1 == n2)
 		return;
-	tmp = a->prev;
-	if (tmp)
-		tmp->next = b;
-	if (b->next)
-		b->next->prev = a;
-	if (tmp == NULL)
-		*list = b;
-	a->next = b->next;
-	b->next = a;
-	a->prev = b;
-	b->prev = tmp;
+	temp_next = n1->next;
+	temp_prev = n1->prev;
+	if (n1->next == n2)
+	{
+		n1->next = n2->next;
+		n2->prev = n1->prev;
+		n1->prev = n2;
+		n2->next = n1;
+		if (n1->next)
+			n1->next->prev = n1;
+		if (n2->prev)
+			n2->prev->next = n2;
+	}
+	else
+	{
+		n1->next = n2->next;
+		n1->prev = n2->prev;
+		n2->next = temp_next;
+		n2->prev = temp_prev;
+		if (n1->next)
+			n1->next->prev = n1;
+		if (n1->prev)
+			n1->prev->next = n1;
+		if (n2->next)
+			n2->next->prev = n2;
+		if (n2->prev)
+			n2->prev->next = n2;
+	}
+	if (!temp_prev)
+		*list = n2;
 }
 /**
  * cocktail_sort_list - sorts a daubly linked list of integers
